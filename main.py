@@ -8,7 +8,12 @@ class EventsPerKm(BaseModel):
     harshBraking: float
     harshTurning: float
 
+class ModelResult(BaseModel):
+    score: float
+    percentile: float
+
 app = FastAPI()
+
 
 @app.post("/getScore")
 async def get_score(eventsPerKm: EventsPerKm):
@@ -17,4 +22,5 @@ async def get_score(eventsPerKm: EventsPerKm):
         'Harsh Braking': eventsPerKm.harshBraking,
         'Harsh Turning': eventsPerKm.harshTurning
     }]
-    return getRankAndMetric(converted)
+    result =  getRankAndMetric(converted)
+    return ModelResult(score = result[1], percentile = result[0])

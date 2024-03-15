@@ -35,5 +35,8 @@ def getRankAndMetric(driver):
     with open('regression_model.pkl', 'rb') as f:
         regression_model = pickle.load(f)
 
-    return [regression_model.predict(driverMetric.reshape(-1,1))[0][0]*100, driverMetric*10]
+    
+    
+
+    return [regression_model.predict(driverMetric.reshape(-1,1))[0][0]*100, (10 - driverMetric*10)]
 
